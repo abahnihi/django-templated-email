@@ -10,7 +10,7 @@ from django.core.files.storage import default_storage
 
 from templated_email.utils import (
     get_emailmessage_klass, get_emailmultialternatives_klass)
-from templated_email.utils import InlineImage
+from templated_email.utils import InlineImage, render_field_block_to_string
 from render_block import render_block_to_string, BlockNotFound
 
 
@@ -103,7 +103,7 @@ class TemplateBackend(object):
 
         for part in ['subject', 'html', 'plain']:
             try:
-                response[part] = render_block_to_string(full_template_names, part, render_context)
+                response[part] = render_field_block_to_string(full_template_names, part, render_context)
             except BlockNotFound as error:
                 errors[part] = error
 
